@@ -14,7 +14,7 @@ module.exports = function(grunt) {
       server: {
         options: {
           port: 1919,
-          base: 'demo_docs/build',
+          base: 'diss/_build',
           livereload: true
         }
       }
@@ -114,12 +114,15 @@ module.exports = function(grunt) {
         cmd: 'bower update'
       },
       build_sphinx: {
-        cmd: 'sphinx-build demo_docs/source demo_docs/build'
+        cmd: 'sphinx-build diss/ diss/_build'
       }
     },
     clean: {
-      build: ["demo_docs/build"],
-      fonts: ["sphinx_rtd_theme/static/fonts"]
+      build: ["diss/_build"],
+      fonts: ["sphinx_rtd_theme/static/fonts"],
+      options: {
+        force: true
+      }
     },
 
     watch: {
@@ -130,7 +133,7 @@ module.exports = function(grunt) {
       },
       /* Changes in theme dir rebuild sphinx */
       sphinx: {
-        files: ['sphinx_rtd_theme/**/*', 'demo_docs/**/*.rst', 'demo_docs/**/*.py'],
+        files: ['sphinx_rtd_theme/**/*', 'diss/**/*.rst', 'diss/**/*.py'],
         tasks: ['clean:build','exec:build_sphinx']
       },
       /* JavaScript */
@@ -140,7 +143,7 @@ module.exports = function(grunt) {
       },
       /* live-reload the demo_docs if sphinx re-builds */
       livereload: {
-        files: ['demo_docs/build/**/*'],
+        files: ['diss/_build/**/*'],
         options: { livereload: true }
       }
     }
